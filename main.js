@@ -7,37 +7,43 @@ $(document).ready(function(){
   let min = 0;
   
   function countDecisec() {
-    
     if (decisec < 9) {
       decisec ++;
       $('#decisecond').text(decisec);
     } else if(decisec == 9) {
       decisec = 0;
       $('#decisecond').text(decisec);
-      
-      if (sec < 59) {
-        sec ++;
-        $('#second').text(sec);
-      } else if(sec == 59) {
-        sec = 0;
-        $('#second').text(sec);
-        
-        if (min < 59) {
-          min ++;
-          $('#minute').text(min);
-        } else if(min == 59) {
-          min = 0;
-          $('#minute').text(min);
-        }
-      }
     }
   }
+
+  function countSec() {
+    if (sec < 59) {
+      sec ++;
+      $('#second').text(sec);
+    } else if(sec == 59) {
+      sec = 0;
+      $('#second').text(sec);
+    }
+  }
+
+  function countMin() {
+    if (min < 59) {
+      min ++;
+      $('#minute').text(min);
+    } else if(min == 59) {
+      min = 0;
+      $('#minute').text(min);
+    }
+  }
+
+
 
 // スタートボタンを押した時→カウントスタート
   $('#start').click(function() {
     
     let startDecisec = setInterval(countDecisec,100);
-    // let startSec = setInterval(countSec,1000);
+    let startSec = setInterval(countSec,1000);
+    let startMin = setInterval(countMin,60000);
     
   // ボタンの活性状態の切り替え  
     if(document.getElementById('stop').disabled === true) {
@@ -54,6 +60,8 @@ $(document).ready(function(){
     $('#stop').click(function() {
       
       clearInterval(startDecisec);
+      clearInterval(startSec);
+      clearInterval(startMin);
     
     // 再度、ボタンの活性状態の切り替え  
       if(document.getElementById('start').disabled === true) {
@@ -68,6 +76,8 @@ $(document).ready(function(){
     $('#reset').click(function() {
       
       clearInterval(startDecisec);
+      clearInterval(startSec);
+      clearInterval(startMin);
       
       if(document.getElementById('start').disabled === true) {
         document.getElementById('start').disabled = false;
